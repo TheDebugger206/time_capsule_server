@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
+            $table->integer("capsule_id");
             $table->string('url');
             $table->unsignedBigInteger('attachable_id'); // fk for the attachable whether img or audio
             $table->string('attachable_type'); // whether img or audio table

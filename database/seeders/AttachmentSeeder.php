@@ -13,6 +13,6 @@ class AttachmentSeeder extends Seeder
      */
     public function run(): void
     {
-        Attachment::factory(10)->create();
+        Attachment::factory(1000)->create();
     }
 }

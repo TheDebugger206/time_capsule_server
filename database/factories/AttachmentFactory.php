@@ -1,10 +1,7 @@
 <?php
-
 namespace Database\Factories;
-
 use App\Models\Audio;
 use App\Models\Image;
-
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -32,6 +29,7 @@ class AttachmentFactory extends Factory
 
         return [
             'url' => $url,
+            "capsule_id" => \App\Models\Capsule::inRandomOrder()->first()?->id ?? 1,
             'attachable_id' => $attachable->id,
             'attachable_type' => $attachableType,
         ];

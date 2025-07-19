@@ -16,9 +16,11 @@ return new class extends Migration {
             $table->string("title");
             $table->text("message");
             $table->date("reveal_date");
-            $table->boolean("is_revealed");
+            $table->boolean("is_revealed")->index();
             $table->boolean("privacy")->index();
             $table->string("mood")->index();
+            $table->double('latitude');
+            $table->double('longitude');
             $table->timestamps();
         });
     }

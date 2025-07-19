@@ -28,4 +28,10 @@ class CapsuleController extends Controller
         return $this->responseJSON($capsule);
     }
 
+    function getCapsulesByUserId($id = null)
+    {
+        $capsules = CapsuleService::getCapsulesByUserId($id);
+        return $this->responseJSON($capsules);
+    }
+
 }

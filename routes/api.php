@@ -3,29 +3,35 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\MediaController;
 use App\Http\Controllers\User\CapsuleController;
 use App\Http\Controllers\Common\AuthController;
 
 
 Route::group(["prefix" => "v0.1"], function () {
     Route::group(["middleware" => "auth:api"], function () {
+
         //AUTHENTICATED APIs
         Route::group(["prefix" => "user"], function () {
-            // get all capsules or a specific capsule
+            // capsules
             Route::get("/capsules/{id?}", [CapsuleController::class, "getAllCapsules"]);
-            // add or update a capsule
-            Route::post("/add_update_capsule/{id?}", [CapsuleController::class, "addOrUpdateCapsule"]);
+            Route::post("/capsule/{id?}", [CapsuleController::class, "addOrUpdateCapsule"]);
+            Route::get("/user_capsules/{id?}", [CapsuleController::class, "getCapsulesByUserId"]);
+
+            // media
+            Route::get("/media/{id?}", [MediaController::class, "getAllMedia"]);
+            Route::post("/media/{id?}", [MediaController::class, "addOrUpdateMedia"]);
+            Route::get("/capsule_media/{id?}", [MediaController::class, "getMediaByCapsuleId"]);
+
         });
 
-        Route::group(["prefix" => "admin"], function () {
-            Route::group(["middleware" => "auth:admin"], function () {
-                
-            });
-        });
+        // Route::group(["prefix" => "admin"], function () {
+        //     Route::group(["middleware" => "auth:admin"], function () {
+
+        //     });
+        // });
 
     });
-
 
     //UNAUTHENTICATED APIs
     Route::group(["prefix" => "guest"], function () {

@@ -17,31 +17,27 @@ class CapsuleService
 
     static function createOrUpdateCapsule($data, $capsule)
     {
-        $id = $data['id'];
-
-        $capsule->user_id = $id && !isset($data['user_id']) ?
-            $capsule->user_id : $data['user_id'];
-
-        $capsule->title = $id && !isset($data['title']) ?
-            $capsule->title : $data['title'];
-
-        $capsule->message = $id && !isset($data['message']) ?
-            $capsule->message : $data['message'];
-
-        $capsule->reveal_date = $id && !isset($data['reveal_date']) ?
-            $capsule->reveal_date : $data['reveal_date'];
-
-        $capsule->is_revealed = $id && !isset($data['is_revealed']) ?
-            $capsule->is_revealed : $data['is_revealed'];
-
-        $capsule->privacy = $id && !isset($data['privacy']) ?
-            $capsule->privacy : $data['privacy'];
-
-        $capsule->mood = $id && !isset($data['mood']) ?
-            $capsule->mood : $data['mood'];
+        $capsule->user_id = $data['user_id'] ?? $capsule->user_id;
+        $capsule->title = $data['title'] ?? $capsule->title;
+        $capsule->message = $data['message'] ?? $capsule->message;
+        $capsule->reveal_date = $data['reveal_date'] ?? $capsule->reveal_date;
+        $capsule->is_revealed = $data['is_revealed'] ?? $capsule->is_revealed;
+        $capsule->privacy = $data['privacy'] ?? $capsule->privacy;
+        $capsule->mood = $data['mood'] ?? $capsule->mood;
+        $capsule->latitude = $data['latitude'] ?? $capsule->latitude;
+        $capsule->longitude = $data['longitude'] ?? $capsule->longitude;
 
         $capsule->save();
         return $capsule;
+    }
+
+    static function getCapsulesByUserId($id)
+    {
+        if (!$id) {
+            return null;
+        }
+
+        return Capsule::where('user_id', $id)->get();
     }
 }
 
