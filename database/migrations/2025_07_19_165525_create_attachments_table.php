@@ -10,13 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('media', function (Blueprint $table) {
+        Schema::create('attachments', function (Blueprint $table) {
             $table->id();
-            $table->string("title");
-            $table->longText("base64_data");
-            $table->string("mime_type"); // png, jpg, ...
-            $table->string("media_type"); // image, audio, ...
-            $table->string("filename"); // original filename
+            $table->string('url');
+            $table->unsignedBigInteger('attachable_id'); // fk for the attachable whether img or audio
+            $table->string('attachable_type'); // whether img or audio table
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('media');
+        Schema::dropIfExists('attachments');
     }
 };

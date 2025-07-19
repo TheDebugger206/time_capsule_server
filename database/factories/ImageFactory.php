@@ -3,11 +3,14 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Process\FakeProcessDescription;
+
+use Faker\Factory as Faker;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Notification>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class NotificationFactory extends Factory
+class ImageFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +20,7 @@ class NotificationFactory extends Factory
     public function definition(): array
     {
         return [
-            "user_id" => 0,
-            "capsule_id" => 0,
-            "type" => $this->faker->words(1, true)
+            'title' => $this->faker->word(),
         ];
     }
 }

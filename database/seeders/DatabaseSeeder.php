@@ -16,8 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             CapsuleSeeder::class,
-            NotificationSeeder::class,
-            MediaSeeder::class
+            AttachmentSeeder::class
         ]);
 
     }

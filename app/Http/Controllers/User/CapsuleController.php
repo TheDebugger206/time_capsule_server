@@ -10,9 +10,9 @@ use App\Models\Capsule;
 class CapsuleController extends Controller
 {
 
-    function getAllCapsules()
+    function getAllCapsules($id = null)
     {
-        $capsules = CapsuleService::getAllCapsules();
+        $capsules = CapsuleService::getAllCapsules($id);
         return $this->responseJSON($capsules);
     }
 
