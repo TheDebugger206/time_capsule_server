@@ -14,6 +14,6 @@ class CapsuleSeeder extends Seeder
      */
     public function run(): void
     {
-        Capsule::factory(500)->create();
+        Capsule::factory(250)->create();
     }
 }

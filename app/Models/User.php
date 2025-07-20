@@ -69,4 +69,9 @@ class User extends Authenticatable implements JWTSubject
             'password' => 'hashed',
         ];
     }
+
+    public function capsules()
+    {
+        return $this->hasMany(Capsule::class);
+    }
 }

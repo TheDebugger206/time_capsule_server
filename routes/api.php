@@ -13,10 +13,13 @@ Route::group(["prefix" => "v0.1"], function () {
 
         //AUTHENTICATED APIs
         Route::group(["prefix" => "user"], function () {
+
             // capsules
             Route::get("/capsules/{id?}", [CapsuleController::class, "getAllCapsules"]);
             Route::post("/capsule/{id?}", [CapsuleController::class, "addOrUpdateCapsule"]);
             Route::get("/user_capsules/{id?}", [CapsuleController::class, "getCapsulesByUserId"]);
+            Route::get("/country_capsules/{country?}", [CapsuleController::class, "getCapsulesByCountry"]);
+            Route::get("/mood_capsules/{mood?}", [CapsuleController::class, "getCapsulesByMood"]);
 
             // media
             Route::get("/media/{id?}", [MediaController::class, "getAllMedia"]);

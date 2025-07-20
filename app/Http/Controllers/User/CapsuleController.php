@@ -34,4 +34,17 @@ class CapsuleController extends Controller
         return $this->responseJSON($capsules);
     }
 
+    function getCapsulesByCountry($country = null)
+    {
+        $capsules = CapsuleService::getCapsulesByCountry($country);
+        return $this->responseJSON($capsules);
+    }
+
+    function getCapsulesByMood($mood = null)
+    {
+        $capsules = CapsuleService::getCapsulesByMood($mood);
+        return $this->responseJSON($capsules);
+    }
+
+
 }

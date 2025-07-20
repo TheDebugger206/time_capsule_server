@@ -19,8 +19,17 @@ return new class extends Migration {
             $table->boolean("is_revealed")->index();
             $table->boolean("privacy")->index();
             $table->string("mood")->index();
-            $table->double('latitude');
-            $table->double('longitude');
+            // ip address related data
+            $table->string("ip");
+            $table->string("country_name")->nullable();
+            $table->string("country_code")->nullable();
+            $table->string("region_code")->nullable();
+            $table->string("region_name")->nullable();
+            $table->string("city_name")->nullable();
+            $table->string("zip_code")->nullable();
+            $table->string("latitude")->nullable();
+            $table->string("longitude")->nullable();
+            $table->string("timezone")->nullable();
             $table->timestamps();
         });
     }
