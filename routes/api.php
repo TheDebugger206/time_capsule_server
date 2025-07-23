@@ -23,7 +23,7 @@ Route::group(["prefix" => "v0.1"], function () {
 
             // media
             Route::get("/media/{id?}", [MediaController::class, "getAllMedia"]);
-            Route::post("/media/{id?}", [MediaController::class, "addOrUpdateMedia"]);
+            Route::post("/media/{id?}", [MediaController::class, "addMedia"]);
             Route::get("/capsule_media/{id?}", [MediaController::class, "getMediaByCapsuleId"]);
 
         });

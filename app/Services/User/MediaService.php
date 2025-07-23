@@ -7,7 +7,8 @@ use App\Models\Audio;
 use App\Models\Image;
 use Illuminate\Auth\Events\Attempting;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class MediaService
 {
@@ -20,19 +21,44 @@ class MediaService
         return Attachment::find($id);
     }
 
-    static function addOrUpdateMedia(Request $request, $attachment)
+    static function addMedia(Request $request)
     {
         $request->validate([
             'capsule_id' => 'required|integer',
-            'url' => 'required|url',
-            'attachable_id' => 'required|integer',
-            'attachable_type' => 'required|string',
+            'title' => 'required|string',
+            'type' => 'required|in:image,audio',
+            'string_base64' => 'required|string',
         ]);
 
-        $attachment->capsule_id = $request['capsule_id'] ?? $attachment->capsule_id;
-        $attachment->url = $request['url'] ?? $attachment->url;
-        $attachment->attachable_id = $request['attachable_id'] ?? $attachment->attachable_id;
-        $attachment->attachable_type = $request['attachable_type'] ?? $attachment->attachable_type;
+        // base64 decode
+        $base64_str = $request->string_base64;
+        $imageData = base64_decode($base64_str);
+
+        // store in the storage (/images or /audio)
+        $isImage = $request['type'] === 'image';
+        $extension = $isImage ? 'png' : 'webm';
+        $folder = $isImage ? 'uploads/images' : 'uploads/audio';
+        $fileName = Str::random(20) . '.' . $extension;
+        $filePath = $folder . $fileName;
+
+        Storage::disk('public')->put($filePath, $imageData);
+
+        // create Image or Audio record
+        if ($request['type'] === 'image') {
+            $media = new Image();
+            $media->title = $request['title'];
+            $media->save();
+        } else {
+            $media = new Audio();
+            $media->title = $request['title'];
+            $media->save();
+        }
+
+        $attachment = new Attachment();
+        $attachment->capsule_id = $request['capsule_id'];
+        $attachment->url = 'storage/' . $filePath;
+        $attachment->type = $request['type'];
+        $attachment->attachment_id = $media->id;
 
         $attachment->save();
         return $attachment;

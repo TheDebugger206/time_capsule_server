@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->integer("capsule_id");
             $table->string('url');
             $table->unsignedBigInteger('attachable_id'); // fk for the attachable whether img or audio
-            $table->string('attachable_type'); // whether img or audio table
+            $table->string('type'); // whether img or audio table
             $table->timestamps();
         });
     }

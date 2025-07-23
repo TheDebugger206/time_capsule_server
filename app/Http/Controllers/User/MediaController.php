@@ -16,16 +16,9 @@ class MediaController extends Controller
         $media = MediaService::getAllMedia($id);
         return $this->responseJSON($media);
     }
-    function addOrUpdateMedia(Request $request, $id = null)
+    function addMedia(Request $request)
     {
-
-        $attachment = new Attachment();
-
-        if ($id) {
-            $attachment = MediaService::getAllMedia($id);
-        }
-
-        $attachment = MediaService::addOrUpdateMedia($request, $attachment);
+        $attachment = MediaService::addMedia($request);
         return $this->responseJSON($attachment);
     }
 

@@ -28,10 +28,10 @@ class AttachmentFactory extends Factory
             : $this->faker->url();
 
         return [
-            'url' => $url,
             "capsule_id" => \App\Models\Capsule::inRandomOrder()->first()?->id ?? 1,
+            'url' => $url,
             'attachable_id' => $attachable->id,
-            'attachable_type' => $attachableType,
+            'type' => $attachableType,
         ];
     }
 }
